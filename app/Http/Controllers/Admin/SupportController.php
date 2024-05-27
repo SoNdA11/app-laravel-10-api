@@ -30,4 +30,21 @@ class SupportController extends Controller
         }
        return view('admin/supports/show', compact('support'));
     }
+
+    public function edit(Support $support, string|int $id){
+        if(!$support = Support::where('id', $id)->first()){
+            return back();
+        }
+       return view('admin/supports/edit', compact('support'));
+    }
+
+    public function update(Request $request, Support $support, string|int $id){
+        if(!$support = Support::where('id', $id)->first()){
+            return back();
+        }
+        $data = $request->all();
+        $data['status'] = 'a';
+        $support->update($data);
+        return redirect()->route('supports.index'); 
+    }
 }
