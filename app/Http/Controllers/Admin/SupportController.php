@@ -19,7 +19,7 @@ class SupportController extends Controller
     }
 
     public function store(StoreUpdateSupport $request, Support $support){
-        $data = $request->all();
+        $data = $request->validate();
         $data['status'] = 'a';
         $support->create($data);
         return redirect()->route('supports.index'); 
@@ -39,13 +39,13 @@ class SupportController extends Controller
        return view('admin/supports/edit', compact('support'));
     }
 
-    public function update(Request $request, Support $support, string|int $id){
+    public function update(StoreUpdateSupport $request, Support $support, string|int $id){
+
         if(!$support = Support::where('id', $id)->first()){
             return back();
         }
-        $data = $request->all();
-        $data['status'] = 'a';
-        $support->update($data);
+        $support->update($request->validate());
+  
         return redirect()->route('supports.index'); 
     }
 
