@@ -11,8 +11,8 @@ use Illuminate\Http\Request;
 class SupportController extends Controller
 {
     public function __construct(protected SupportService $service){
-        
-    } 
+
+    }
 
     public function index(Request $request){
         $supports = $this->service->getAll($request->filter);
@@ -23,12 +23,18 @@ class SupportController extends Controller
         return view('admin/supports/create');
     }
 
+
+
+
     public function store(StoreUpdateSupport $request, Support $support){
         $data = $request->validate();
         $data['status'] = 'a';
         $support->create($data);
-        return redirect()->route('supports.index'); 
+        return redirect()->route('supports.index');
     }
+
+
+
 
     public function show(string $id){
         if(!$support = $this->service->findOne($id)){
@@ -50,12 +56,12 @@ class SupportController extends Controller
             return back();
         }
         $support->update($request->validate());
-  
-        return redirect()->route('supports.index'); 
+
+        return redirect()->route('supports.index');
     }
 
     public function destroy(string $id){
         $this->service->delete($id);
-        return redirect()->route('supports.index'); 
+        return redirect()->route('supports.index');
     }
 }

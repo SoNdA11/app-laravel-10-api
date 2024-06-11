@@ -7,9 +7,10 @@ use stdClass;
 class SupportService
 {
     protected $repository;
+
     public function __construct()
     {
-        
+
     }
 
     public function getAll(string $filter = null): array
@@ -53,7 +54,7 @@ class SupportService
 
 
 
-    public function delete(string $id) : void 
+    public function delete(string $id) : void
     {
         $this->repository->delete($id);
     }
