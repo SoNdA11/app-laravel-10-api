@@ -1,19 +1,19 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+// GET - Retorna todos os usuários
+Route::get('/users', [UserController::class, 'index']);  //http://localhost:8989/api/users?page=1
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Visualizar um usuário
+Route::get('/users/{email}', [UserController::class, 'show']); // GET - http://localhost:8989/api/users/user@example.com
+
+// Cria um novo usuário ou Cadastrar
+Route::post('/users', [UserController::class, 'store']); // POST - http://localhost:8989/api/users
+
+// Atualizar um usuário
+Route::put('/users/{email}', [UserController::class, 'update']); // PUT - http://localhost:8989/api/users/user@example.com
+
+// Deletar um usuário
+Route::delete('/users/{email}', [UserController::class, 'destroy']); // DELETE - http://localhost:8989/api/users/user@example.com
